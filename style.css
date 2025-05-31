@@ -1,0 +1,166 @@
+/* Basic reset for margin and padding */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Simple, readable font */
+  background-color: #f4f8fb; /* Light blue-gray background for Intel feel */
+  color: #222;
+}
+
+/* Header styles */
+.header {
+  background-color: #0071c5; /* Intel blue */
+  color: #fff;
+  padding: 30px 0;
+  text-align: center;
+}
+
+.header-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.intel-logo {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+/* Timeline section styles */
+.timeline {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: row; /* Cards in a row */
+  overflow-x: auto; /* Enable horizontal scroll on small screens */
+  gap: 20px; /* Space between cards */
+  padding: 30px 10px;
+  /* Make timeline take full width */
+  width: 100%;
+  box-sizing: border-box;
+  /* Enable scroll snap for smooth scrolling */
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #0071c5 #e0e7ef;
+}
+
+/* Card styles */
+.card {
+  background: #fff;
+  border: 2px solid #e0e7ef;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Soft shadow for normal state */
+  width: 260px;
+  min-width: 260px; /* Make sure cards don't shrink too much */
+  max-width: 90vw; /* Prevent card from overflowing on small screens */
+  padding: 16px;
+  text-align: center;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  flex-shrink: 0;   /* Prevent cards from shrinking */
+  position: relative;
+  scroll-snap-align: start; /* Snap to each card */
+  overflow: hidden; /* Hide shimmer overflow */
+}
+
+/* Responsive: Stack cards vertically on very small screens */
+@media (max-width: 600px) {
+  .timeline {
+    flex-direction: column;
+    align-items: center;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+  .card {
+    width: 95vw;
+    min-width: 0;
+    max-width: 95vw;
+    margin-bottom: 20px;
+  }
+}
+
+/* Shimmer effect using a pseudo-element */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.5) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  z-index: 1;
+  animation: shimmer 2s infinite;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Shimmer animation keyframes */
+@keyframes shimmer {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+/* Hover effect for cards */
+.card:hover {
+  border-color: #0071c5; /* Intel blue border on hover */
+  box-shadow: 0 8px 24px rgba(0,113,197,0.18);
+  transform: translateY(-8px) scale(1.03);
+  z-index: 2;
+}
+
+/* Make sure content is above shimmer */
+.card * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Show the milestone image as a preview */
+.card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Hide the milestone info (h3 and p) by default */
+.card h3,
+.card p {
+  display: none;
+}
+
+/* Show the info when the card is hovered */
+.card:hover h3,
+.card:hover p {
+  display: block;
+}
+
+/* Headings inside cards */
+.card h2 {
+  color: #0071c5;
+  margin: 0 0 4px 0;
+  font-size: 1.3em;
+}
+
+.card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1em;
+}
+
+/* Timeline note at the bottom */
+.timeline-note {
+  text-align: center;
+  color: #0071c5;
+  margin: 20px 0 30px 0;
+  font-size: 1em;
+}
+
+/* 
+  Beginner comments:
+  - Flexbox is used for the timeline so cards line up in a row.
+  - On small screens, cards stack vertically for better readability.
+  - Scroll snap makes scrolling between cards smooth and controlled.
+*/
